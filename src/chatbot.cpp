@@ -11,6 +11,8 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
+    std::cout << "ChatBot No Image Constructor" << std::endl;
+
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -20,7 +22,7 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor" << std::endl;
+    std::cout << "ChatBot Image Constructor" << std::endl;
     
     // invalidate data handles
     _chatLogic = nullptr;
@@ -45,6 +47,56 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// Copy constructor 
+ChatBot::ChatBot(const ChatBot &other)
+{
+    std::cout << "ChatBot Copy Constructor from " << &other << " to " << this << std::endl;
+    *_chatLogic = *other._chatLogic;
+    *_rootNode = *other._rootNode;
+    *_image = *other._image;
+}
+
+// Copy assignment operator
+ChatBot & ChatBot::operator=(const ChatBot &other)
+{
+    std::cout << "ChatBot Copy Assignment Operator from " << &other << " to " << this << std::endl;
+    if (this == &other) {
+        return *this;
+    }
+    delete _image;
+    *_chatLogic = *other._chatLogic;
+    *_rootNode = *other._rootNode;
+    *_image = *other._image;
+}
+
+// Move constructor 
+ChatBot::ChatBot(ChatBot &&other)
+{
+    std::cout << "ChatBot Move Constructor from " << &other << " to " << this << std::endl;
+    _chatLogic = other._chatLogic;
+    _rootNode = other._rootNode;
+    _image = other._image;
+    other._chatLogic = nullptr;
+    other._rootNode = nullptr;
+    delete other._image;
+    other._image = NULL;
+}
+
+// Move assignment operator
+ChatBot & ChatBot::operator=(ChatBot &&other)
+{
+    std::cout << "ChatBot Move Assignment Operator from " << &other << " to " << this << std::endl;
+    if (this == &other) {
+        return *this;
+    }
+    delete _image;
+    _chatLogic = other._chatLogic;
+    _rootNode = other._rootNode;
+    _image = other._image;
+    other._chatLogic = nullptr;
+    other._rootNode = nullptr;
+    other._image = NULL;
+}
 ////
 //// EOF STUDENT CODE
 
