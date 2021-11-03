@@ -52,7 +52,7 @@ ChatBot::ChatBot(const ChatBot &other)
 {
     std::cout << "ChatBot Copy Constructor from " << &other << " to " << this << std::endl;
     _chatLogic = other._chatLogic;
-    *_rootNode = *other._rootNode;
+    _rootNode = other._rootNode;
     *_image = *other._image;
 }
 
@@ -65,7 +65,7 @@ ChatBot & ChatBot::operator=(const ChatBot &other)
     }
     delete _image;
     _chatLogic = other._chatLogic;
-    *_rootNode = *other._rootNode;
+    _rootNode = other._rootNode;
     *_image = *other._image;
 }
 
