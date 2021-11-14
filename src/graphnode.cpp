@@ -6,7 +6,6 @@ GraphNode::GraphNode(int id)
 {
     std::cout << "GraphNode " << id << " Constructor"  << std::endl;
     _id = id;
-    _chatBot = nullptr;
     std::cout << "End GraphNode " << id << " Constructor"  << std::endl;
 }
 
@@ -36,12 +35,12 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 
 //// STUDENT CODE
 ////
-void GraphNode::MoveChatbotHere(std::unique_ptr<ChatBot> chatbot)
+void GraphNode::MoveChatbotHere(ChatBot chatbot)
 {
     std::cout << "GraphNode MoveChatbotHere " << GetID() << std::endl;
 
     _chatBot = std::move(chatbot);
-    _chatBot->SetCurrentNode(this);
+    _chatBot.SetCurrentNode(this);
 
     std::cout << "End GraphNode MoveChatbotHere " << std::endl;
 
@@ -52,7 +51,6 @@ void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
     std::cout << "GraphNode MoveChatbotToNewNode from " << GetID() << " to " << newNode->GetID() << std::endl;
 
     newNode->MoveChatbotHere(std::move(_chatBot));
-    _chatBot = nullptr;
 
     std::cout << "EndGraphNode MoveChatbotToNewNode " << std::endl;
 

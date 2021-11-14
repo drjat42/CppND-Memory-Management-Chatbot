@@ -203,17 +203,14 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     // add chatbot to graph root node
     std::cout << "ChatLogic LoadAnswerGraphFromFile add chatbot to graph root node" << std::endl;
 
-    std::unique_ptr<ChatBot> chatBot = std::make_unique<ChatBot>("../images/chatbot.png");
+    ChatBot chatBot = ChatBot("../images/chatbot.png");
     std::cerr << "1" << std::endl;
 
-    _chatBot = chatBot.get();
+    chatBot.SetChatLogicHandle(this);
     std::cerr << "2" << std::endl;
 
-    chatBot->SetChatLogicHandle(this);
+    chatBot.SetRootNode(rootNode);
     std::cerr << "3" << std::endl;
-
-    chatBot->SetRootNode(rootNode);
-    std::cerr << "4" << std::endl;
 
     rootNode->MoveChatbotHere(std::move(chatBot));
 
