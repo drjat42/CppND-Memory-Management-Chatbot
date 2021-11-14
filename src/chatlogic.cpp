@@ -16,9 +16,6 @@ ChatLogic::ChatLogic()
 {
     //// STUDENT CODE
     ////
-    std::cout << "ChatLogic Constructor" << std::endl;
-    std::cout << "End ChatLogic Constructor" << std::endl;
-
     ////
     //// EOF STUDENT CODE
 }
@@ -27,9 +24,6 @@ ChatLogic::~ChatLogic()
 {
     //// STUDENT CODE
     ////
-    std::cout << "ChatLogic Destructor" << std::endl;
-    std::cout << "end ChatLogic Destructor" << std::endl;
-
     ////
     //// EOF STUDENT CODE
 }
@@ -56,8 +50,6 @@ void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T 
 
 void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 {
-    std::cout << "ChatLogic LoadAnswerGraphFromFile " << filename << std::endl;
-
     // load file with answer graph elements
     std::ifstream file(filename);
 
@@ -201,28 +193,16 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     }
 
     // add chatbot to graph root node
-    std::cout << "ChatLogic LoadAnswerGraphFromFile add chatbot to graph root node" << std::endl;
-
     ChatBot chatBot = ChatBot("../images/chatbot.png");
-    std::cerr << "1" << std::endl;
-
     chatBot.SetChatLogicHandle(this);
-    std::cerr << "2" << std::endl;
-
     chatBot.SetRootNode(rootNode);
-    std::cerr << "3" << std::endl;
-
     rootNode->MoveChatbotHere(std::move(chatBot));
-
-    std::cerr << "ChatLogic LoadAnswerGraphFromFile complete" << std::endl;
-
     ////
     //// EOF STUDENT CODE
 }
 
 void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)
 {
-    std::cout << "ChatLogic SetPanelDialogHandle " << panelDialog << std::endl;
     _panelDialog = panelDialog;
 }
 
@@ -238,12 +218,7 @@ void ChatLogic::SendMessageToChatbot(std::string message)
 
 void ChatLogic::SendMessageToUser(std::string message)
 {
-    std::cout << "ChatLogic SendMessageToUser " << message << std::endl;
-
     _panelDialog->PrintChatbotResponse(message);
-
-    std::cout << "ChatLogic SendMessageToUser complete " << std::endl;
-
 }
 
 wxBitmap *ChatLogic::GetImageFromChatbot()

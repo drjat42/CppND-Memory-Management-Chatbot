@@ -18,9 +18,6 @@ ChatBot::ChatBot()
     _currentNode = nullptr;
     _chatLogic = nullptr;
     _rootNode = nullptr;
-
-    std::cout << "End ChatBot No Image Constructor" << std::endl;
-
 }
 
 // constructor WITH memory allocation
@@ -35,7 +32,6 @@ ChatBot::ChatBot(std::string filename)
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
-    std::cout << "End ChatBot Image Constructor" << std::endl;
 }
 
 ChatBot::~ChatBot()
@@ -48,7 +44,6 @@ ChatBot::~ChatBot()
         delete _image;
         _image = NULL;
     }
-    std::cout << "End ChatBot Destructor" << std::endl;
 }
 
 //// STUDENT CODE
@@ -59,24 +54,13 @@ ChatBot::ChatBot(ChatBot &&other)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
     _currentNode = other._currentNode;
-    std::cout << "0" << std::endl;
     _chatLogic = other._chatLogic;
-    std::cout << "1" << std::endl;
     _chatLogic->SetChatbotHandle(this);
-    std::cout << "2" << std::endl;
     _rootNode = other._rootNode;
-    std::cout << "3" << std::endl;
     _image = other._image;
-    std::cout << "4" << std::endl;
     other._chatLogic = nullptr;
-    std::cout << "5" << std::endl;
     other._rootNode = nullptr;
-    std::cout << "6" << std::endl;
     other._image = NULL;
-    //if (other._image != NULL) {
-    //    delete other._image;
-    //}
-    std::cout << "End ChatBot Move Constructor" << std::endl;
 }
 
 // Move assignment operator
@@ -87,7 +71,7 @@ ChatBot & ChatBot::operator=(ChatBot &&other)
         return *this;
     }
     if (_image != NULL) {
-        delete _image;  // Should never happen.
+        delete _image;  // Should never happen since we manage Chatbot as a singleton.
     }
     _currentNode = other._currentNode;
     _chatLogic = other._chatLogic;
@@ -98,8 +82,6 @@ ChatBot & ChatBot::operator=(ChatBot &&other)
     other._chatLogic = nullptr;
     other._rootNode = nullptr;
     other._image = NULL;
-    std::cout << "End ChatBot Move Assignment Operator" << std::endl;
-
 }
 ////
 //// EOF STUDENT CODE
@@ -140,26 +122,18 @@ void ChatBot::ReceiveMessageFromUser(std::string message)
 
 void ChatBot::SetCurrentNode(GraphNode *node)
 {
-    std::cout << "ChatBot SetCurrentNode " << node->GetID() << std::endl;
-
     // update pointer to current node
     _currentNode = node;
 
     // select a random node answer (if several answers should exist)
     std::vector<std::string> answers = _currentNode->GetAnswers();
 
-    std::cout << "ChatBot SetCurrentNode answers " << answers[0] << std::endl;
-
     std::mt19937 generator(int(std::time(0)));
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
 
-    std::cout << "ChatBot SetCurrentNode answer " << answer << std::endl;
-
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
-
-    std::cout << "End ChatBot SetCurrentNode " << std::endl;
 
 }
 

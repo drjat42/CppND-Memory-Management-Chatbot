@@ -1,19 +1,15 @@
 #include "graphedge.h"
 #include "graphnode.h"
-#include <iostream>
 
 GraphNode::GraphNode(int id)
 {
-    std::cout << "GraphNode " << id << " Constructor"  << std::endl;
     _id = id;
-    std::cout << "End GraphNode " << id << " Constructor"  << std::endl;
 }
 
 GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     ////
-    std::cout << "GraphNode " << _id << " Destructor"  << std::endl;
     ////
     //// EOF STUDENT CODE
 }
@@ -37,23 +33,13 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 ////
 void GraphNode::MoveChatbotHere(ChatBot chatbot)
 {
-    std::cout << "GraphNode MoveChatbotHere " << GetID() << std::endl;
-
     _chatBot = std::move(chatbot);
     _chatBot.SetCurrentNode(this);
-
-    std::cout << "End GraphNode MoveChatbotHere " << std::endl;
-
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    std::cout << "GraphNode MoveChatbotToNewNode from " << GetID() << " to " << newNode->GetID() << std::endl;
-
     newNode->MoveChatbotHere(std::move(_chatBot));
-
-    std::cout << "EndGraphNode MoveChatbotToNewNode " << std::endl;
-
 }
 ////
 //// EOF STUDENT CODE
